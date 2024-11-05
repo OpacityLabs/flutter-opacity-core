@@ -8,4 +8,8 @@ class FlutterOpacityCore {
   Future showAlert() {
     return FlutterOpacityCorePlatform.instance.showAlert();
   }
+
+  Future init(String apiKey, bool dryRun) {
+    return FlutterOpacityCorePlatform.instance.init(apiKey, dryRun);
+  }
 }

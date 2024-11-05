@@ -20,4 +20,12 @@ class MethodChannelFlutterOpacityCore extends FlutterOpacityCorePlatform {
   Future showAlert() async {
     await methodChannel.invokeMethod<void>('showAlert');
   }
+
+  @override
+  Future init(String apiKey, bool dryRun) async {
+    await methodChannel.invokeMethod<void>('init', {
+      'apiKey': apiKey,
+      'dryRun': dryRun,
+    });
+  }
 }

@@ -16,6 +16,15 @@ public class FlutterOpacityCorePlugin: NSObject, FlutterPlugin {
         let alert = UIAlertController(title: "Hello", message: "I am a native alert dialog", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true)
+    case "init":
+        if let args = call.arguments as? [String: Any],
+           let apiKey = args["apiKey"] as? String,
+           let dryRun = args["dryRun"] as? Bool {
+            OpacitySwiftWrapper.initialize(apiKey: apiKey, dryRun: dryRun)
+        } else {
+            result(FlutterError(code: "INVALID_ARGUMENTS", message: "Invalid arguments", details: nil))
+        }
+    
     default:
       result(FlutterMethodNotImplemented)
     }

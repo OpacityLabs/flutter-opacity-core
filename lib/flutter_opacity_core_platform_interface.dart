@@ -31,4 +31,8 @@ abstract class FlutterOpacityCorePlatform extends PlatformInterface {
   Future showAlert() {
     throw UnimplementedError('showAlert() has not been implemented.');
   }
+
+  Future init(String apiKey, bool dryRun) {
+    throw UnimplementedError('init() has not been implemented.');
+  }
 }

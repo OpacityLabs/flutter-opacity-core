@@ -57,10 +57,10 @@ class _MyAppState extends State<MyApp> {
         body: Center(
             child: MaterialButton(
                 onPressed: () {
-                  _flutterOpacityCorePlugin.showAlert();
+                  _flutterOpacityCorePlugin.init("blah", false);
                 },
                 color: Colors.green,
-                child: const Text("Show Alert"))),
+                child: const Text("Init SDK"))),
       ),
     );
   }
