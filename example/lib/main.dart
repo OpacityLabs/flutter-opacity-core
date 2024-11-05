@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:flutter/services.dart';
 import 'package:flutter_opacity_core/flutter_opacity_core.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +16,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
   final _flutterOpacityCorePlugin = FlutterOpacityCore();
 
   @override
@@ -27,24 +26,17 @@ class _MyAppState extends State<MyApp> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    // We also handle the message potentially returning null.
-    try {
-      platformVersion = await _flutterOpacityCorePlugin.getPlatformVersion() ??
-          'Unknown platform version';
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
+    await dotenv.load();
+    final apiKey = dotenv.env['OPACITY_API_KEY'];
+    if (apiKey == null || apiKey.isEmpty) {
+      throw Exception('API key is not set');
     }
+    await _flutterOpacityCorePlugin.init(apiKey, false);
+  }
 
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
+  Future<void> getUberRiderProfile() async {
+    final response = await _flutterOpacityCorePlugin.getUberRiderProfile();
+    print('Response: ${response.json}');
   }
 
   @override
@@ -57,10 +49,10 @@ class _MyAppState extends State<MyApp> {
         body: Center(
             child: MaterialButton(
                 onPressed: () {
-                  _flutterOpacityCorePlugin.init("blah", false);
+                  getUberRiderProfile();
                 },
                 color: Colors.green,
-                child: const Text("Init SDK"))),
+                child: const Text("Get Uber Rider Profile"))),
       ),
     );
   }

@@ -10,22 +10,18 @@ class MethodChannelFlutterOpacityCore extends FlutterOpacityCorePlatform {
   final methodChannel = const MethodChannel('flutter_opacity_core');
 
   @override
-  Future<String?> getPlatformVersion() async {
-    final version =
-        await methodChannel.invokeMethod<String>('getPlatformVersion');
-    return version;
-  }
-
-  @override
-  Future showAlert() async {
-    await methodChannel.invokeMethod<void>('showAlert');
-  }
-
-  @override
   Future init(String apiKey, bool dryRun) async {
     await methodChannel.invokeMethod<void>('init', {
       'apiKey': apiKey,
       'dryRun': dryRun,
     });
+  }
+
+  @override
+  Future getUberRiderProfile() async {
+    final response = await methodChannel
+        .invokeMapMethod<String, String>('getUberRiderProfile');
+    return WorkflowResponse(
+        json: response!['json']!, proof: response['proof']!);
   }
 }
