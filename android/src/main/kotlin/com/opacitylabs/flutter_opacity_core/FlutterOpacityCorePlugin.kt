@@ -1,9 +1,7 @@
 package com.opacitylabs.flutter_opacity_core
 
-import android.app.AlertDialog
-import android.content.DialogInterface
-import androidx.annotation.NonNull
-
+import android.app.Activity
+import android.content.Context
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
@@ -11,6 +9,7 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
+import kotlinx.coroutines.*
 
 /** FlutterOpacityCorePlugin */
 class FlutterOpacityCorePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
@@ -19,26 +18,44 @@ class FlutterOpacityCorePlugin: FlutterPlugin, MethodCallHandler, ActivityAware 
   /// This local reference serves to register the plugin with the Flutter Engine and unregister it
   /// when the Flutter Engine is detached from the Activity
   private lateinit var channel : MethodChannel
-  private var currentActivity: android.app.Activity? = null
+  private lateinit var context : Context
+  private var activity: Activity? = null
 
   override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
+    context = flutterPluginBinding.applicationContext
     channel = MethodChannel(flutterPluginBinding.binaryMessenger, "flutter_opacity_core")
     channel.setMethodCallHandler(this)
   }
 
   override fun onMethodCall(call: MethodCall, result: Result) {
     when(call.method) {
-      "getPlatformVersion" -> {
-        result.success("Android ${android.os.Build.VERSION.RELEASE}")
+      "init" -> {
+        val apiKey = call.argument<String?>("apiKey")
+        val dryRun = call.argument<Boolean?>("dryRun")
+        if (apiKey == null || dryRun == null) {
+          result.error("INVALID_ARGUMENTS", "apiKey and dryRun must be provided", null)
+        } else {
+          OpacityCore.initialize(apiKey, dryRun)
+          result.success(null)
+        }
       }
-      "showAlert" -> {
-        return currentActivity?.let {
-          val builder = AlertDialog.Builder(it)
-          builder.setTitle("Hello")
-          builder.setMessage("I'm a native alert dialog.")
-          builder.create().show()
-          result.success(true)
-        } ?: result.error("0", "Current activity null", "cannot show dialog cuz activity is null")
+      "getUberRiderProfile" -> {
+        CoroutineScope(Dispatchers.Main).launch {
+          try {
+            // Call the suspend function and capture its result
+            val res = OpacityCore.getUberDriverProfile()
+            val profileMap: Map<String, Any?> = mapOf(
+              "json" to res.json,
+              "proof" to res.proof
+            )
+
+            // Send the map back to Flutter
+            result.success(profileMap)
+          } catch (e: Exception) {
+            // Handle any exceptions and send an error back to Flutter
+            result.error("ERROR_FETCHING_PROFILE", e.message, null)
+          }
+        }
       }
       else -> {
         result.notImplemented()
@@ -51,18 +68,20 @@ class FlutterOpacityCorePlugin: FlutterPlugin, MethodCallHandler, ActivityAware 
   }
 
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
-    currentActivity = binding.activity
+    activity = binding.activity
+    OpacityCore.setContext(binding.activity)
   }
 
   override fun onDetachedFromActivityForConfigChanges() {
-    currentActivity = null
+    activity = null
   }
 
   override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
-    currentActivity = binding.activity
+    activity = binding.activity
+    OpacityCore.setContext(binding.activity)
   }
 
   override fun onDetachedFromActivity() {
-    currentActivity = null
+    activity = null
   }
 }
