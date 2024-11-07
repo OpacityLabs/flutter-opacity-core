@@ -1,6 +1,17 @@
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSInteger, OpacityEnvironment) {
+  Test,
+  Local,
+  Staging,
+  Production
+};
+
 @interface OpacityObjCWrapper : NSObject
+
++ (void)initialize:(NSString *)apiKey
+         andDryRun:(BOOL)dryRun
+    andEnvironment:(OpacityEnvironment)environment;
 
 + (void)handleStatus:(int)status
                 json:(char *)json
@@ -8,8 +19,6 @@
                  err:(char *)err
           completion:(void (^)(NSString *json, NSString *proof,
                                NSError *error))completion;
-
-+ (void)initialize:(NSString *)api_key andDryRun:(BOOL)dry_run;
 // uber
 + (void)getUberRiderProfile:(void (^)(NSString *json, NSString *proof,
                                       NSError *error))completion;
