@@ -10,10 +10,11 @@ class MethodChannelFlutterOpacityCore extends FlutterOpacityCorePlatform {
   final methodChannel = const MethodChannel('flutter_opacity_core');
 
   @override
-  Future init(String apiKey, bool dryRun) async {
+  Future init(String apiKey, bool dryRun, int environment) async {
     await methodChannel.invokeMethod<void>('init', {
       'apiKey': apiKey,
       'dryRun': dryRun,
+      'environment': environment,
     });
   }
 

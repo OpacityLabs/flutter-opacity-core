@@ -159,10 +159,12 @@ extern "C" JNIEXPORT jint JNICALL
 Java_com_opacitylabs_flutter_1opacity_1core_OpacityCore_init(JNIEnv *env,
                                                              jobject thiz,
                                                              jstring api_key,
-                                                             jboolean dry_run) {
+                                                             jboolean dry_run,
+                                                             jint environment) {
   java_object = env->NewGlobalRef(thiz);
   const char *api_key_str = env->GetStringUTFChars(api_key, nullptr);
-  int result = opacity_core::init(api_key_str, dry_run);
+  int environment_int = static_cast<int>(environment);
+  int result = opacity_core::init(api_key_str, dry_run, environment_int);
   return result;
 }
 

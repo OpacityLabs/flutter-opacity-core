@@ -32,10 +32,11 @@ class FlutterOpacityCorePlugin: FlutterPlugin, MethodCallHandler, ActivityAware 
       "init" -> {
         val apiKey = call.argument<String?>("apiKey")
         val dryRun = call.argument<Boolean?>("dryRun")
-        if (apiKey == null || dryRun == null) {
+        val environment = call.argument<Int?>("environment")
+        if (apiKey == null || dryRun == null || environment == null) {
           result.error("INVALID_ARGUMENTS", "apiKey and dryRun must be provided", null)
         } else {
-          OpacityCore.initialize(apiKey, dryRun)
+          OpacityCore.initialize(apiKey, dryRun, environment)
           result.success(null)
         }
       }

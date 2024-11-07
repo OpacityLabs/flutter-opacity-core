@@ -1,8 +1,12 @@
 import 'flutter_opacity_core_platform_interface.dart';
 
+enum OpacityEnvironment { test, local, staging, production }
+
 class FlutterOpacityCore {
   Future init(String apiKey, bool dryRun, OpacityEnvironment environment) {
-    return FlutterOpacityCorePlatform.instance.init(apiKey, dryRun);
+    int environmentInt = environment.index;
+    return FlutterOpacityCorePlatform.instance
+        .init(apiKey, dryRun, environmentInt);
   }
 
   Future getUberRiderProfile() async {

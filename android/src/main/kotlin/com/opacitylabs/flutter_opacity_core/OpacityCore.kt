@@ -22,9 +22,9 @@ object OpacityCore {
         System.loadLibrary("OpacityCore")
     }
 
-    fun initialize(apiKey: String, dryRun: Boolean): Int {
+    fun initialize(apiKey: String, dryRun: Boolean, environment: Int): Int {
         cryptoManager = CryptoManager(appContext.applicationContext)
-        return init(apiKey, dryRun)
+        return init(apiKey, dryRun, environment)
     }
 
     fun setContext(context: Context) {
@@ -154,7 +154,7 @@ object OpacityCore {
         }
     }
 
-    private external fun init(apiKey: String, dryRun: Boolean): Int
+    private external fun init(apiKey: String, dryRun: Boolean, environment: Int): Int
     private external fun executeFlow(flow: String)
     external fun emitWebviewEvent(eventJson: String)
     private external fun getUberFareEstimate(

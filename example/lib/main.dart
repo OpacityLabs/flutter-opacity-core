@@ -31,7 +31,8 @@ class _MyAppState extends State<MyApp> {
     if (apiKey == null || apiKey.isEmpty) {
       throw Exception('API key is not set');
     }
-    await _flutterOpacityCorePlugin.init(apiKey, false, OpacityEnvironment.staging);
+    await _flutterOpacityCorePlugin.init(
+        apiKey, false, OpacityEnvironment.staging);
   }
 
   Future<void> getUberRiderProfile() async {
