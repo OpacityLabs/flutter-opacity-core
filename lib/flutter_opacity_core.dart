@@ -1,7 +1,7 @@
 import 'flutter_opacity_core_platform_interface.dart';
 
 class FlutterOpacityCore {
-  Future init(String apiKey, bool dryRun) {
+  Future init(String apiKey, bool dryRun, OpacityEnvironment environment) {
     return FlutterOpacityCorePlatform.instance.init(apiKey, dryRun);
   }
 

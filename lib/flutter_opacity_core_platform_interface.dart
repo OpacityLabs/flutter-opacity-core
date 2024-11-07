@@ -17,6 +17,13 @@ class WorkflowResponse {
   }
 }
 
+enum OpacityEnvironment {
+  test,
+  local,
+  stating,
+  production
+}
+
 abstract class FlutterOpacityCorePlatform extends PlatformInterface {
   /// Constructs a FlutterOpacityCorePlatform.
   FlutterOpacityCorePlatform() : super(token: _token);
@@ -39,7 +46,7 @@ abstract class FlutterOpacityCorePlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future init(String apiKey, bool dryRun) {
+  Future init(String apiKey, bool dryRun, OpacityEnvironment environment) {
     throw UnimplementedError('init() has not been implemented.');
   }
 
