@@ -5,8 +5,8 @@ homepage: https://opacity.network
 repository: https://github.com/OpacityLabs/flutter-opacity-core
 
 environment:
-  sdk: ^3.5.4
-  flutter: ">=3.3.0"
+  sdk: 3.5.4
+  flutter: 3.3.0
 
 dependencies:
   flutter:
