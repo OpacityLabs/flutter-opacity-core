@@ -25,9 +25,9 @@ jobs:
         run: |
           tag=$(echo $GITHUB_REF | sed 's/refs\/tags\///')
           sed -i "s/^version:.*/version: $tag/" pubspec.yaml
-      # - name: Publish
-      #   uses: k-paxian/dart-package-publisher@v1.5.1
-      #   with:
-      #     credentialJson: ${{ secrets.CREDENTIAL_JSON }}
-      #     flutter: true
-      #     skipTests: true
+      - name: Publish
+        uses: k-paxian/dart-package-publisher@v1.5.1
+        with:
+          credentialJson: ${{ secrets.CREDENTIAL_JSON }}
+          flutter: true
+          skipTests: true
