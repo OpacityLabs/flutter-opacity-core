@@ -11,11 +11,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: dart-lang/setup-dart@v1
-      - name: Setup Flutter SDK
-        uses: flutter-actions/setup-flutter@v3
-        with:
-          channel: stable
-          version: 3.3.0
+      - name: Install Latest Stable Flutter
+        run: |
+          # Download and install the latest stable Flutter version
+          git clone https://github.com/flutter/flutter.git -b stable --depth 1
+          echo "$PWD/flutter/bin" >> $GITHUB_PATH
+          flutter --version  # Confirm installed Flutter version and Dart SDK
+
       - name: Install dependencies
         run: flutter pub get
       - name: Analyze
