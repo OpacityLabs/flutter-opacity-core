@@ -28,4 +28,4 @@ jobs:
           tag=$(echo $GITHUB_REF | sed 's/refs\/tags\///')
           sed -i "s/^version:.*/version: $tag/" pubspec.yaml
       - name: Publish
-        run: dart pub publish --force
+        run: flutter pub publish --force
