@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
       - name: Setup Flutter SDK
         uses: flutter-actions/setup-flutter@v3
         with:
@@ -30,7 +31,7 @@ jobs:
           tag=$(echo $GITHUB_REF | sed 's/refs\/tags\///')
           sed -i "s/^version:.*/version: $tag/" pubspec.yaml
       - name: Publish
-        uses: k-paxian/dart-package-publisher@v1.5.1
+        uses: k-paxian/dart-package-publisher@master
         with:
           credentialJson: ${{ secrets.CREDENTIAL_JSON }}
           flutter: true
