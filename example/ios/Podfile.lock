@@ -2,13 +2,19 @@ PODS:
   - Flutter (1.0.0)
   - flutter_opacity_core (0.0.1):
     - Flutter
+    - OpacityCore (= 3.19.2)
   - integration_test (0.0.1):
     - Flutter
+  - OpacityCore (3.19.2)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_opacity_core (from `.symlinks/plugins/flutter_opacity_core/ios`)
   - integration_test (from `.symlinks/plugins/integration_test/ios`)
+
+SPEC REPOS:
+  trunk:
+    - OpacityCore
 
 EXTERNAL SOURCES:
   Flutter:
@@ -20,9 +26,10 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  flutter_opacity_core: 7fcbfb2a1716775e610b9e484580a288114d25bf
+  flutter_opacity_core: b828424734ebb2bb9fe8f5ccc913c667f3370c2f
   integration_test: 252f60fa39af5e17c3aa9899d35d908a0721b573
+  OpacityCore: 714972dc0239edc6ad46a8dfa52e10d70c3e5814
 
-PODFILE CHECKSUM: a57f30d18f102dd3ce366b1d62a55ecbef2158e5
+PODFILE CHECKSUM: 1959d098c91d8a792531a723c4a9d7e9f6a01e38
 
 COCOAPODS: 1.15.2

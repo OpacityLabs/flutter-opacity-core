@@ -1,5 +1,5 @@
 import Flutter
-import UIKit
+import OpacityCore
 
 public class FlutterOpacityCorePlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
