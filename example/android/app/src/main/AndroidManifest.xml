@@ -29,7 +29,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.opacitylabs.flutter_opacity_core.InAppBrowserActivity"
+            android:name="com.opacitylabs.opacitycore.InAppBrowserActivity"
             android:theme="@style/Theme.AppCompat.DayNight" />
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->

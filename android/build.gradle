@@ -40,13 +40,6 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8
     }
 
-    externalNativeBuild {
-        cmake {
-            path file('src/main/cpp/CMakeLists.txt')
-            version '3.22.1'
-        }
-    }
-
     sourceSets {
         main.java.srcDirs += "src/main/kotlin"
         test.java.srcDirs += "src/test/kotlin"
@@ -63,6 +56,7 @@ android {
         implementation "org.mozilla.geckoview:geckoview-nightly:132.0.20240918041351"
         implementation "androidx.localbroadcastmanager:localbroadcastmanager:1.1.0"
         implementation "androidx.appcompat:appcompat:1.7.0"
+        implementation "com.github.OpacityLabs:opacity-android:3.20.0"
     }
 
     testOptions {

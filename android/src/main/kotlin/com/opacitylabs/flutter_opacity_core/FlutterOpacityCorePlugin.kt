@@ -9,6 +9,7 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
+import com.opacitylabs.opacitycore.OpacityCore
 import kotlinx.coroutines.*
 
 /** FlutterOpacityCorePlugin */
@@ -36,7 +37,17 @@ class FlutterOpacityCorePlugin: FlutterPlugin, MethodCallHandler, ActivityAware 
         if (apiKey == null || dryRun == null || environment == null) {
           result.error("INVALID_ARGUMENTS", "apiKey and dryRun must be provided", null)
         } else {
-          OpacityCore.initialize(apiKey, dryRun, environment)
+            val environmentEnum = when (environment) {
+            0 -> OpacityCore.Environment.TEST
+            1 -> OpacityCore.Environment.LOCAL
+            2 -> OpacityCore.Environment.STAGING
+            3 -> OpacityCore.Environment.PRODUCTION
+            else -> {
+              result.error("INVALID_ARGUMENTS", "Invalid environment value", null)
+              return
+            }
+            }
+          OpacityCore.initialize(apiKey, dryRun, environmentEnum)
           result.success(null)
         }
       }
