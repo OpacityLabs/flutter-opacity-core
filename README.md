@@ -4,6 +4,12 @@ Opacity Core for flutter
 
 ## Getting Started
 
+Install the flutter dependency:
+
+https://pub.dev/packages/flutter_opacity_core
+
+## iOS
+
 You need to bump min iOS version to iOS 14 or newer.
 
 ### Android
