@@ -46,4 +46,8 @@ abstract class FlutterOpacityCorePlatform extends PlatformInterface {
   Future getUberRiderProfile() {
     throw UnimplementedError('getUberRiderProfile() has not been implemented.');
   }
+
+  Future getGithubProfile() {
+    throw UnimplementedError('getGithubProfile() has not been implemented.');
+  }
 }

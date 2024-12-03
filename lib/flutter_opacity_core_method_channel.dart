@@ -25,4 +25,12 @@ class MethodChannelFlutterOpacityCore extends FlutterOpacityCorePlatform {
     return WorkflowResponse(
         json: response!['json']!, proof: response['proof']!);
   }
+
+  @override
+  Future getGithubProfile() async {
+    final response = await methodChannel
+        .invokeMapMethod<String, String>('getGithubProfile');
+    return WorkflowResponse(
+        json: response!['json']!, proof: response['proof']!);
+  }
 }

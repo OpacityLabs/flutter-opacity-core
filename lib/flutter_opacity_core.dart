@@ -14,4 +14,10 @@ class FlutterOpacityCore {
         await FlutterOpacityCorePlatform.instance.getUberRiderProfile();
     return WorkflowResponse.fromMap(responseMap as Map<String, dynamic>);
   }
+
+  Future getGithubProfile() async {
+    final responseMap =
+        await FlutterOpacityCorePlatform.instance.getGithubProfile();
+    return WorkflowResponse.fromMap(responseMap as Map<String, dynamic>);
+  }
 }

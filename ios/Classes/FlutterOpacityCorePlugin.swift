@@ -40,6 +40,18 @@ public class FlutterOpacityCorePlugin: NSObject, FlutterPlugin {
               code: "ERROR_FETCHING_PROFILE", message: error.localizedDescription, details: nil))
         }
       }
+    case "getGithubProfile":
+      Task {
+        do {
+          let (json, proof) = try await OpacitySwiftWrapper.getGithubProfile()
+          let responseDict: [String: Any] = ["json": json, "proof": proof]
+          result(responseDict)  // Send the dictionary back to Flutter
+        } catch {
+          result(
+            FlutterError(
+              code: "ERROR_FETCHING_PROFILE", message: error.localizedDescription, details: nil))
+        }
+      }
 
     default:
       result(FlutterMethodNotImplemented)
