@@ -38,13 +38,13 @@ class _MyAppState extends State<MyApp> {
   Future<void> getUberRiderProfile() async {
     final response = await _flutterOpacityCorePlugin.getUberRiderProfile();
     // ignore: avoid_print
-    print('Response: ${response.json}');
+    print('Response: $response');
   }
 
   Future<void> getGithubProfile() async {
     final response = await _flutterOpacityCorePlugin.getGithubProfile();
     // ignore: avoid_print
-    print('Response: ${response.json}');
+    print('Response: $response');
   }
 
   @override

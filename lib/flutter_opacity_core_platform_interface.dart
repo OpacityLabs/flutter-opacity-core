@@ -2,20 +2,20 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'flutter_opacity_core_method_channel.dart';
 
-class WorkflowResponse {
-  String json;
-  String proof;
+// class WorkflowResponse {
+//   String json;
+//   // String proof;
 
-  WorkflowResponse({required this.json, required this.proof});
+//   WorkflowResponse({required this.json});
 
-  // Factory constructor to create from a dictionary
-  factory WorkflowResponse.fromMap(Map<String, dynamic> map) {
-    return WorkflowResponse(
-      json: map['json'] as String,
-      proof: map['proof'] as String,
-    );
-  }
-}
+//   // Factory constructor to create from a dictionary
+//   factory WorkflowResponse.fromMap(Map<String, dynamic> map) {
+//     return WorkflowResponse(
+//       json: map['json'] as String,
+//       // proof: map['proof'] as String,
+//     );
+//   }
+// }
 
 abstract class FlutterOpacityCorePlatform extends PlatformInterface {
   /// Constructs a FlutterOpacityCorePlatform.
