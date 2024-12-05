@@ -38,24 +38,38 @@ class _MyAppState extends State<MyApp> {
   Future<void> getUberRiderProfile() async {
     final response = await _flutterOpacityCorePlugin.getUberRiderProfile();
     // ignore: avoid_print
-    print('Response: ${response.json}');
+    print('Response: $response');
+  }
+
+  Future<void> getGithubProfile() async {
+    final response = await _flutterOpacityCorePlugin.getGithubProfile();
+    // ignore: avoid_print
+    print('Response: $response');
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Center(
-            child: MaterialButton(
-                onPressed: () {
-                  getUberRiderProfile();
-                },
-                color: Colors.green,
-                child: const Text("Get Uber Rider Profile"))),
+        home: Scaffold(
+      appBar: AppBar(
+        title: const Text('Plugin example app'),
       ),
-    );
+      body: Center(
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          MaterialButton(
+              onPressed: () {
+                getUberRiderProfile();
+              },
+              color: Colors.green,
+              child: const Text("Get Uber Rider Profile")),
+          MaterialButton(
+              onPressed: () {
+                getGithubProfile();
+              },
+              color: Colors.green,
+              child: const Text("Get Github Profile")),
+        ]),
+      ),
+    ));
   }
 }

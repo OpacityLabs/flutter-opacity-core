@@ -22,7 +22,13 @@ class MethodChannelFlutterOpacityCore extends FlutterOpacityCorePlatform {
   Future getUberRiderProfile() async {
     final response = await methodChannel
         .invokeMapMethod<String, String>('getUberRiderProfile');
-    return WorkflowResponse(
-        json: response!['json']!, proof: response['proof']!);
+    return response;
+  }
+
+  @override
+  Future<Map<String, String>?> getGithubProfile() async {
+    final response =
+        await methodChannel.invokeMapMethod<String, String>('getGithubProfile');
+    return response;
   }
 }
