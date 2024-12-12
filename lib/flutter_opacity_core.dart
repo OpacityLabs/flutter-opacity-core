@@ -20,4 +20,16 @@ class FlutterOpacityCore {
         await FlutterOpacityCorePlatform.instance.getGithubProfile();
     return responseMap;
   }
+
+  Future getInstagramProfile() async {
+    final responseMap =
+        await FlutterOpacityCorePlatform.instance.getInstagramProfile();
+    return responseMap;
+  }
+
+  Future getGustoMembersTable() async {
+    final responseMap =
+        await FlutterOpacityCorePlatform.instance.getGustoMembersTable();
+    return responseMap;
+  }
 }

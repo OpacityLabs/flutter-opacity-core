@@ -47,6 +47,18 @@ class _MyAppState extends State<MyApp> {
     print('Response: $response');
   }
 
+  Future<void> getInstagramProfile() async {
+    final response = await _flutterOpacityCorePlugin.getInstagramProfile();
+    // ignore: avoid_print
+    print('Response: $response');
+  }
+
+  Future<void> getGustoMembersTable() async {
+    final response = await _flutterOpacityCorePlugin.getGustoMembersTable();
+    // ignore: avoid_print
+    print('Response: $response');
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -68,6 +80,18 @@ class _MyAppState extends State<MyApp> {
               },
               color: Colors.green,
               child: const Text("Get Github Profile")),
+          MaterialButton(
+              onPressed: () {
+                getInstagramProfile();
+              },
+              color: Colors.green,
+              child: const Text("Get Instagram Profile")),
+          MaterialButton(
+              onPressed: () {
+                getGustoMembersTable();
+              },
+              color: Colors.green,
+              child: const Text("Get Gusto Profile")),
         ]),
       ),
     ));
