@@ -45,7 +45,7 @@ You will also have to bump the minSDK version to 23. In your app's `build.gradle
         applicationId = "com.opacitylabs.flutter_opacity_core_example"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = 23 // Change this!
+        minSdk = 24 // Change this!
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
