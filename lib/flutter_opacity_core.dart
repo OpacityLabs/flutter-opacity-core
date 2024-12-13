@@ -27,9 +27,9 @@ class FlutterOpacityCore {
     return responseMap;
   }
 
-  Future getGustoMembersTable() async {
+  Future get(String name, {Map<String, dynamic>? params}) async {
     final responseMap =
-        await FlutterOpacityCorePlatform.instance.getGustoMembersTable();
+        await FlutterOpacityCorePlatform.instance.get(name, params: params);
     return responseMap;
   }
 }

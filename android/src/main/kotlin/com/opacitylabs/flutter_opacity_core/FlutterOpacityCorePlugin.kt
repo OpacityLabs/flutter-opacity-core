@@ -102,11 +102,13 @@ class FlutterOpacityCorePlugin: FlutterPlugin, MethodCallHandler, ActivityAware 
           }
         }
       }
-      "getGustoMembersTable" -> {
+      "get" -> {
+        val name = call.argument<String>("name")
+        val params = call.argument<String>("params")
         CoroutineScope(Dispatchers.Main).launch {
           try {
             // Call the suspend function and capture its result
-            val res = OpacityCore.getGustoMembersTable()
+            val res = OpacityCore.get(name, params)
             val profileMap: Map<String, Any?> = mapOf(
               "json" to res.json,
 //              "proof" to res.proof

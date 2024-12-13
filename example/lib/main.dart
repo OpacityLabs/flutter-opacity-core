@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -53,8 +55,9 @@ class _MyAppState extends State<MyApp> {
     print('Response: $response');
   }
 
-  Future<void> getGustoMembersTable() async {
-    final response = await _flutterOpacityCorePlugin.getGustoMembersTable();
+  // LUA get example
+  Future<void> get() async {
+    final response = await _flutterOpacityCorePlugin.get('flow:gusto:my_pay');
     // ignore: avoid_print
     print('Response: $response');
   }
@@ -88,10 +91,10 @@ class _MyAppState extends State<MyApp> {
               child: const Text("Get Instagram Profile")),
           MaterialButton(
               onPressed: () {
-                getGustoMembersTable();
+                get();
               },
               color: Colors.green,
-              child: const Text("Get Gusto Profile")),
+              child: const Text("Get Gusto My Pay")),
         ]),
       ),
     ));

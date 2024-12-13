@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'dart:convert';
 
 import 'flutter_opacity_core_platform_interface.dart';
 
@@ -40,9 +41,11 @@ class MethodChannelFlutterOpacityCore extends FlutterOpacityCorePlatform {
   }
 
   @override
-  Future<Map<String, String>?> getGustoMembersTable() async {
-    final response = await methodChannel
-        .invokeMapMethod<String, String>('getGustoMembersTable');
+  Future<Map<String, String>?> get(String name,
+      {Map<String, dynamic>? params}) async {
+    String jsonString = jsonEncode(params);
+    final response = await methodChannel.invokeMapMethod<String, String>(
+        'get', {'name': name, 'params': params != null ? jsonString : null});
     return response;
   }
 }
