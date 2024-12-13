@@ -57,8 +57,7 @@ class _MyAppState extends State<MyApp> {
 
   // LUA get example
   Future<void> get() async {
-    final response =
-        await _flutterOpacityCorePlugin.get('flow:gusto:my_pay', {});
+    final response = await _flutterOpacityCorePlugin.get('flow:gusto:my_pay');
     // ignore: avoid_print
     print('Response: $response');
   }

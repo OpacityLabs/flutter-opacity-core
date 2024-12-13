@@ -41,11 +41,11 @@ class MethodChannelFlutterOpacityCore extends FlutterOpacityCorePlatform {
   }
 
   @override
-  Future<Map<String, String>?> get(
-      String name, Map<String, dynamic> params) async {
+  Future<Map<String, String>?> get(String name,
+      {Map<String, dynamic>? params}) async {
     String jsonString = jsonEncode(params);
     final response = await methodChannel.invokeMapMethod<String, String>(
-        'get', {'name': name, 'params': jsonString});
+        'get', {'name': name, 'params': params != null ? jsonString : null});
     return response;
   }
 }

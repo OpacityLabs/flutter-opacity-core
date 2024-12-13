@@ -27,9 +27,9 @@ class FlutterOpacityCore {
     return responseMap;
   }
 
-  Future get(String name, Map<String, dynamic> params) async {
+  Future get(String name, {Map<String, dynamic>? params}) async {
     final responseMap =
-        await FlutterOpacityCorePlatform.instance.get(name, params);
+        await FlutterOpacityCorePlatform.instance.get(name, params: params);
     return responseMap;
   }
 }

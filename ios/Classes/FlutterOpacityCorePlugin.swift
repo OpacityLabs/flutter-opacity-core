@@ -24,7 +24,8 @@ public class FlutterOpacityCorePlugin: NSObject, FlutterPlugin {
           return
         }
         do {
-          try OpacitySwiftWrapper.initialize(apiKey: apiKey, dryRun: dryRun, environment: environmentEnum)
+          try OpacitySwiftWrapper.initialize(
+            apiKey: apiKey, dryRun: dryRun, environment: environmentEnum)
           result(nil)
         } catch {
           result(
@@ -37,7 +38,7 @@ public class FlutterOpacityCorePlugin: NSObject, FlutterPlugin {
     case "getUberRiderProfile":
       Task {
         do {
-          let (json, proof) = try await OpacitySwiftWrapper.getUberRiderProfile()
+          let (json, _) = try await OpacitySwiftWrapper.getUberRiderProfile()
           let responseDict: [String: Any] = ["json": json]
           result(responseDict)  // Send the dictionary back to Flutter
         } catch {
@@ -49,7 +50,7 @@ public class FlutterOpacityCorePlugin: NSObject, FlutterPlugin {
     case "getGithubProfile":
       Task {
         do {
-          let (json, proof) = try await OpacitySwiftWrapper.getGithubProfile()
+          let (json, _) = try await OpacitySwiftWrapper.getGithubProfile()
           let responseDict: [String: Any] = ["json": json]
           result(responseDict)  // Send the dictionary back to Flutter
         } catch {
@@ -61,7 +62,7 @@ public class FlutterOpacityCorePlugin: NSObject, FlutterPlugin {
     case "getInstagramProfile":
       Task {
         do {
-          let (json, proof) = try await OpacitySwiftWrapper.getInstagramProfile()
+          let (json, _) = try await OpacitySwiftWrapper.getInstagramProfile()
           let responseDict: [String: Any] = ["json": json]
           result(responseDict)  // Send the dictionary back to Flutter
         } catch {
@@ -72,12 +73,15 @@ public class FlutterOpacityCorePlugin: NSObject, FlutterPlugin {
       }
     case "get":
       if let args = call.arguments as? [String: Any],
-        let name = args["name"] as? String,
-        let params = args["params"] as? String
+         let name = args["name"] as? String
       {
+        let params = args["params"] as? String
         Task {
           do {
-            let (json, proof) = try await OpacitySwiftWrapper.get(name: name, params: params)
+            let (json, _) = try await OpacitySwiftWrapper.get(
+              name: name,
+              params: params
+            )
             let responseDict: [String: Any] = ["json": json]
             result(responseDict)  // Send the dictionary back to Flutter
           } catch {
