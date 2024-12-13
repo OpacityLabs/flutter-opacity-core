@@ -70,19 +70,25 @@ public class FlutterOpacityCorePlugin: NSObject, FlutterPlugin {
               code: "ERROR_FETCHING_PROFILE", message: error.localizedDescription, details: nil))
         }
       }
-    case "getGustoMembersTable":
-      Task {
-        do {
-          let (json, proof) = try await OpacitySwiftWrapper.getGustoMembersTable()
-          let responseDict: [String: Any] = ["json": json]
-          result(responseDict)  // Send the dictionary back to Flutter
-        } catch {
-          result(
-            FlutterError(
-              code: "ERROR_FETCHING_TABLE", message: error.localizedDescription, details: nil))
+    case "get":
+      if let args = call.arguments as? [String: Any],
+        let name = args["name"] as? String,
+        let params = args["params"] as? String
+      {
+        Task {
+          do {
+            let (json, proof) = try await OpacitySwiftWrapper.get(name: name, params: params)
+            let responseDict: [String: Any] = ["json": json]
+            result(responseDict)  // Send the dictionary back to Flutter
+          } catch {
+            result(
+              FlutterError(
+                code: "ERROR_GETTING_FLOW", message: error.localizedDescription, details: nil))
+          }
         }
+      } else {
+        result(FlutterError(code: "INVALID_ARGUMENTS", message: "Invalid arguments", details: nil))
       }
-
     default:
       result(FlutterMethodNotImplemented)
     }
