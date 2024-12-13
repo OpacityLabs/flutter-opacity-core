@@ -23,8 +23,14 @@ public class FlutterOpacityCorePlugin: NSObject, FlutterPlugin {
               code: "INVALID_ENVIRONMENT", message: "Invalid environment value", details: nil))
           return
         }
-        OpacitySwiftWrapper.initialize(apiKey: apiKey, dryRun: dryRun, environment: environmentEnum)
-        result(nil)
+        do {
+          try OpacitySwiftWrapper.initialize(apiKey: apiKey, dryRun: dryRun, environment: environmentEnum)
+          result(nil)
+        } catch {
+          result(
+            FlutterError(
+              code: "ERROR_INITIALIZING", message: error.localizedDescription, details: nil))
+        }
       } else {
         result(FlutterError(code: "INVALID_ARGUMENTS", message: "Invalid arguments", details: nil))
       }
@@ -50,6 +56,30 @@ public class FlutterOpacityCorePlugin: NSObject, FlutterPlugin {
           result(
             FlutterError(
               code: "ERROR_FETCHING_PROFILE", message: error.localizedDescription, details: nil))
+        }
+      }
+    case "getInstagramProfile":
+      Task {
+        do {
+          let (json, proof) = try await OpacitySwiftWrapper.getInstagramProfile()
+          let responseDict: [String: Any] = ["json": json]
+          result(responseDict)  // Send the dictionary back to Flutter
+        } catch {
+          result(
+            FlutterError(
+              code: "ERROR_FETCHING_PROFILE", message: error.localizedDescription, details: nil))
+        }
+      }
+    case "getGustoMembersTable":
+      Task {
+        do {
+          let (json, proof) = try await OpacitySwiftWrapper.getGustoMembersTable()
+          let responseDict: [String: Any] = ["json": json]
+          result(responseDict)  // Send the dictionary back to Flutter
+        } catch {
+          result(
+            FlutterError(
+              code: "ERROR_FETCHING_TABLE", message: error.localizedDescription, details: nil))
         }
       }
 

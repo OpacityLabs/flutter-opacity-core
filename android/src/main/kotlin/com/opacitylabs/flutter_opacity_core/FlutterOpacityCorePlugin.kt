@@ -58,10 +58,9 @@ class FlutterOpacityCorePlugin: FlutterPlugin, MethodCallHandler, ActivityAware 
             val res = OpacityCore.getUberDriverProfile()
             val profileMap: Map<String, Any?> = mapOf(
               "json" to res.json,
-              "proof" to res.proof
+//              "proof" to res.proof
             )
 
-            // Send the map back to Flutter
             result.success(profileMap)
           } catch (e: Exception) {
             // Handle any exceptions and send an error back to Flutter
@@ -76,14 +75,48 @@ class FlutterOpacityCorePlugin: FlutterPlugin, MethodCallHandler, ActivityAware 
             val res = OpacityCore.getGithubProfile()
             val profileMap: Map<String, Any?> = mapOf(
               "json" to res.json,
-              "proof" to res.proof
+//              "proof" to res.proof
             )
 
-            // Send the map back to Flutter
             result.success(profileMap)
           } catch (e: Exception) {
             // Handle any exceptions and send an error back to Flutter
             result.error("ERROR_FETCHING_PROFILE", e.message, null)
+          }
+        }
+      }
+      "getInstagramProfile" -> {
+        CoroutineScope(Dispatchers.Main).launch {
+          try {
+            // Call the suspend function and capture its result
+            val res = OpacityCore.getInstagramProfile()
+            val profileMap: Map<String, Any?> = mapOf(
+              "json" to res.json,
+//              "proof" to res.proof
+            )
+
+            result.success(profileMap)
+          } catch (e: Exception) {
+            // Handle any exceptions and send an error back to Flutter
+            result.error("ERROR_FETCHING_PROFILE", e.message, null)
+          }
+        }
+      }
+      "getGustoMembersTable" -> {
+        CoroutineScope(Dispatchers.Main).launch {
+          try {
+            // Call the suspend function and capture its result
+            val res = OpacityCore.getGustoMembersTable()
+            val profileMap: Map<String, Any?> = mapOf(
+              "json" to res.json,
+//              "proof" to res.proof
+            )
+
+
+            result.success(profileMap)
+          } catch (e: Exception) {
+            // Handle any exceptions and send an error back to Flutter
+            result.error("ERROR_FETCHING_TABLE", e.message, null)
           }
         }
       }

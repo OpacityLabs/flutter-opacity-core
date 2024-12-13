@@ -32,7 +32,7 @@ class _MyAppState extends State<MyApp> {
       throw Exception('API key is not set');
     }
     await _flutterOpacityCorePlugin.init(
-        apiKey, false, OpacityEnvironment.staging);
+        apiKey, false, OpacityEnvironment.production);
   }
 
   Future<void> getUberRiderProfile() async {
@@ -43,6 +43,18 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> getGithubProfile() async {
     final response = await _flutterOpacityCorePlugin.getGithubProfile();
+    // ignore: avoid_print
+    print('Response: $response');
+  }
+
+  Future<void> getInstagramProfile() async {
+    final response = await _flutterOpacityCorePlugin.getInstagramProfile();
+    // ignore: avoid_print
+    print('Response: $response');
+  }
+
+  Future<void> getGustoMembersTable() async {
+    final response = await _flutterOpacityCorePlugin.getGustoMembersTable();
     // ignore: avoid_print
     print('Response: $response');
   }
@@ -68,6 +80,18 @@ class _MyAppState extends State<MyApp> {
               },
               color: Colors.green,
               child: const Text("Get Github Profile")),
+          MaterialButton(
+              onPressed: () {
+                getInstagramProfile();
+              },
+              color: Colors.green,
+              child: const Text("Get Instagram Profile")),
+          MaterialButton(
+              onPressed: () {
+                getGustoMembersTable();
+              },
+              color: Colors.green,
+              child: const Text("Get Gusto Profile")),
         ]),
       ),
     ));

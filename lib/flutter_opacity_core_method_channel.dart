@@ -31,4 +31,18 @@ class MethodChannelFlutterOpacityCore extends FlutterOpacityCorePlatform {
         await methodChannel.invokeMapMethod<String, String>('getGithubProfile');
     return response;
   }
+
+  @override
+  Future<Map<String, String>?> getInstagramProfile() async {
+    final response = await methodChannel
+        .invokeMapMethod<String, String>('getInstagramProfile');
+    return response;
+  }
+
+  @override
+  Future<Map<String, String>?> getGustoMembersTable() async {
+    final response = await methodChannel
+        .invokeMapMethod<String, String>('getGustoMembersTable');
+    return response;
+  }
 }
