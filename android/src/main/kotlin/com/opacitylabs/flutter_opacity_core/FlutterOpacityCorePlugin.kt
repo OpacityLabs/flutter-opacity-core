@@ -54,7 +54,6 @@ class FlutterOpacityCorePlugin: FlutterPlugin, MethodCallHandler, ActivityAware 
       "getUberRiderProfile" -> {
         CoroutineScope(Dispatchers.Main).launch {
           try {
-            // Call the suspend function and capture its result
             val res = OpacityCore.getUberDriverProfile()
             val profileMap: Map<String, Any?> = mapOf(
               "json" to res.json,
@@ -63,7 +62,6 @@ class FlutterOpacityCorePlugin: FlutterPlugin, MethodCallHandler, ActivityAware 
 
             result.success(profileMap)
           } catch (e: Exception) {
-            // Handle any exceptions and send an error back to Flutter
             result.error("ERROR_FETCHING_PROFILE", e.message, null)
           }
         }
@@ -71,7 +69,6 @@ class FlutterOpacityCorePlugin: FlutterPlugin, MethodCallHandler, ActivityAware 
       "getGithubProfile" -> {
         CoroutineScope(Dispatchers.Main).launch {
           try {
-            // Call the suspend function and capture its result
             val res = OpacityCore.getGithubProfile()
             val profileMap: Map<String, Any?> = mapOf(
               "json" to res.json,
@@ -80,7 +77,6 @@ class FlutterOpacityCorePlugin: FlutterPlugin, MethodCallHandler, ActivityAware 
 
             result.success(profileMap)
           } catch (e: Exception) {
-            // Handle any exceptions and send an error back to Flutter
             result.error("ERROR_FETCHING_PROFILE", e.message, null)
           }
         }
@@ -88,7 +84,6 @@ class FlutterOpacityCorePlugin: FlutterPlugin, MethodCallHandler, ActivityAware 
       "getInstagramProfile" -> {
         CoroutineScope(Dispatchers.Main).launch {
           try {
-            // Call the suspend function and capture its result
             val res = OpacityCore.getInstagramProfile()
             val profileMap: Map<String, Any?> = mapOf(
               "json" to res.json,
@@ -97,7 +92,6 @@ class FlutterOpacityCorePlugin: FlutterPlugin, MethodCallHandler, ActivityAware 
 
             result.success(profileMap)
           } catch (e: Exception) {
-            // Handle any exceptions and send an error back to Flutter
             result.error("ERROR_FETCHING_PROFILE", e.message, null)
           }
         }
@@ -105,9 +99,12 @@ class FlutterOpacityCorePlugin: FlutterPlugin, MethodCallHandler, ActivityAware 
       "get" -> {
         val name = call.argument<String>("name")
         val params = call.argument<String>("params")
+        if (name == null) {
+          result.error("MISSING_PARAM", "Name parameter is required", null)
+          return
+        }
         CoroutineScope(Dispatchers.Main).launch {
           try {
-            // Call the suspend function and capture its result
             val res = OpacityCore.get(name, params)
             val profileMap: Map<String, Any?> = mapOf(
               "json" to res.json,
@@ -117,7 +114,6 @@ class FlutterOpacityCorePlugin: FlutterPlugin, MethodCallHandler, ActivityAware 
 
             result.success(profileMap)
           } catch (e: Exception) {
-            // Handle any exceptions and send an error back to Flutter
             result.error("ERROR_FETCHING_TABLE", e.message, null)
           }
         }
