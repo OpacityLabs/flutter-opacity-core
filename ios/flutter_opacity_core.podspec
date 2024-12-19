@@ -21,7 +21,7 @@ Opacity Core for flutter
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
   s.swift_version = '5.0'
 
-  s.dependency 'OpacityCore', '3.22.9'
+  s.dependency 'OpacityCore', '3.22.12'
   s.frameworks = "WebKit", "CoreTelephony", "CoreLocation", "SystemConfiguration"
 
   # If your plugin requires a privacy manifest, for example if it uses any
