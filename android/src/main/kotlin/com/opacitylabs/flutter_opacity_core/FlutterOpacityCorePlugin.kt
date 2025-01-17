@@ -51,54 +51,9 @@ class FlutterOpacityCorePlugin: FlutterPlugin, MethodCallHandler, ActivityAware 
           result.success(null)
         }
       }
-      "getUberRiderProfile" -> {
-        CoroutineScope(Dispatchers.Main).launch {
-          try {
-            val res = OpacityCore.getUberDriverProfile()
-            val profileMap: Map<String, Any?> = mapOf(
-              "json" to res.json,
-//              "proof" to res.proof
-            )
-
-            result.success(profileMap)
-          } catch (e: Exception) {
-            result.error("ERROR_FETCHING_PROFILE", e.message, null)
-          }
-        }
-      }
-      "getGithubProfile" -> {
-        CoroutineScope(Dispatchers.Main).launch {
-          try {
-            val res = OpacityCore.getGithubProfile()
-            val profileMap: Map<String, Any?> = mapOf(
-              "json" to res.json,
-//              "proof" to res.proof
-            )
-
-            result.success(profileMap)
-          } catch (e: Exception) {
-            result.error("ERROR_FETCHING_PROFILE", e.message, null)
-          }
-        }
-      }
-      "getInstagramProfile" -> {
-        CoroutineScope(Dispatchers.Main).launch {
-          try {
-            val res = OpacityCore.getInstagramProfile()
-            val profileMap: Map<String, Any?> = mapOf(
-              "json" to res.json,
-//              "proof" to res.proof
-            )
-
-            result.success(profileMap)
-          } catch (e: Exception) {
-            result.error("ERROR_FETCHING_PROFILE", e.message, null)
-          }
-        }
-      }
       "get" -> {
         val name = call.argument<String>("name")
-        val params = call.argument<String>("params")
+        val params = call.argument<Map<String, Any>>("params")
         if (name == null) {
           result.error("MISSING_PARAM", "Name parameter is required", null)
           return
@@ -106,13 +61,7 @@ class FlutterOpacityCorePlugin: FlutterPlugin, MethodCallHandler, ActivityAware 
         CoroutineScope(Dispatchers.Main).launch {
           try {
             val res = OpacityCore.get(name, params)
-            val profileMap: Map<String, Any?> = mapOf(
-              "json" to res.json,
-//              "proof" to res.proof
-            )
-
-
-            result.success(profileMap)
+            result.success(res)
           } catch (e: Exception) {
             result.error("ERROR_FETCHING_TABLE", e.message, null)
           }

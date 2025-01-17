@@ -56,7 +56,7 @@ android {
         implementation "org.mozilla.geckoview:geckoview-nightly:132.0.20240918041351"
         implementation "androidx.localbroadcastmanager:localbroadcastmanager:1.1.0"
         implementation "androidx.appcompat:appcompat:1.7.0"
-        implementation "com.github.OpacityLabs:opacity-android:3.23.50"
+        implementation "com.github.OpacityLabs:opacity-android:4.0.4"
     }
 
     testOptions {
