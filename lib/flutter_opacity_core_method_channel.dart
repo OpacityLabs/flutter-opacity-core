@@ -20,32 +20,10 @@ class MethodChannelFlutterOpacityCore extends FlutterOpacityCorePlatform {
   }
 
   @override
-  Future getUberRiderProfile() async {
-    final response = await methodChannel
-        .invokeMapMethod<String, String>('getUberRiderProfile');
-    return response;
-  }
-
-  @override
-  Future<Map<String, String>?> getGithubProfile() async {
-    final response =
-        await methodChannel.invokeMapMethod<String, String>('getGithubProfile');
-    return response;
-  }
-
-  @override
-  Future<Map<String, String>?> getInstagramProfile() async {
-    final response = await methodChannel
-        .invokeMapMethod<String, String>('getInstagramProfile');
-    return response;
-  }
-
-  @override
-  Future<Map<String, String>?> get(String name,
+  Future<Map<String, dynamic>?> get(String name,
       {Map<String, dynamic>? params}) async {
-    String jsonString = jsonEncode(params);
-    final response = await methodChannel.invokeMapMethod<String, String>(
-        'get', {'name': name, 'params': params != null ? jsonString : null});
+    final response = await methodChannel.invokeMapMethod<String, dynamic>(
+        'get', {'name': name, 'params': params});
     return response;
   }
 }

@@ -9,24 +9,6 @@ class FlutterOpacityCore {
         .init(apiKey, dryRun, environmentInt);
   }
 
-  Future getUberRiderProfile() async {
-    final responseMap =
-        await FlutterOpacityCorePlatform.instance.getUberRiderProfile();
-    return responseMap;
-  }
-
-  Future getGithubProfile() async {
-    final responseMap =
-        await FlutterOpacityCorePlatform.instance.getGithubProfile();
-    return responseMap;
-  }
-
-  Future getInstagramProfile() async {
-    final responseMap =
-        await FlutterOpacityCorePlatform.instance.getInstagramProfile();
-    return responseMap;
-  }
-
   Future get(String name, {Map<String, dynamic>? params}) async {
     final responseMap =
         await FlutterOpacityCorePlatform.instance.get(name, params: params);

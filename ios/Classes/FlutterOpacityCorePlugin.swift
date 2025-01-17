@@ -35,55 +35,19 @@ public class FlutterOpacityCorePlugin: NSObject, FlutterPlugin {
       } else {
         result(FlutterError(code: "INVALID_ARGUMENTS", message: "Invalid arguments", details: nil))
       }
-    case "getUberRiderProfile":
-      Task {
-        do {
-          let (json, _) = try await OpacitySwiftWrapper.getUberRiderProfile()
-          let responseDict: [String: Any] = ["json": json]
-          result(responseDict)  // Send the dictionary back to Flutter
-        } catch {
-          result(
-            FlutterError(
-              code: "ERROR_FETCHING_PROFILE", message: error.localizedDescription, details: nil))
-        }
-      }
-    case "getGithubProfile":
-      Task {
-        do {
-          let (json, _) = try await OpacitySwiftWrapper.getGithubProfile()
-          let responseDict: [String: Any] = ["json": json]
-          result(responseDict)  // Send the dictionary back to Flutter
-        } catch {
-          result(
-            FlutterError(
-              code: "ERROR_FETCHING_PROFILE", message: error.localizedDescription, details: nil))
-        }
-      }
-    case "getInstagramProfile":
-      Task {
-        do {
-          let (json, _) = try await OpacitySwiftWrapper.getInstagramProfile()
-          let responseDict: [String: Any] = ["json": json]
-          result(responseDict)  // Send the dictionary back to Flutter
-        } catch {
-          result(
-            FlutterError(
-              code: "ERROR_FETCHING_PROFILE", message: error.localizedDescription, details: nil))
-        }
-      }
+
     case "get":
       if let args = call.arguments as? [String: Any],
-         let name = args["name"] as? String
+        let name = args["name"] as? String
       {
-        let params = args["params"] as? String
+        let params = args["params"] as? [String: Any]
         Task {
           do {
-            let (json, _) = try await OpacitySwiftWrapper.get(
+            let res = try await OpacitySwiftWrapper.get(
               name: name,
               params: params
             )
-            let responseDict: [String: Any] = ["json": json]
-            result(responseDict)  // Send the dictionary back to Flutter
+            result(res)
           } catch {
             result(
               FlutterError(

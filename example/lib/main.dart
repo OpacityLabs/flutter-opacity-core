@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -34,7 +32,7 @@ class _MyAppState extends State<MyApp> {
       throw Exception('API key is not set');
     }
     await _flutterOpacityCorePlugin.init(
-        apiKey, false, OpacityEnvironment.production);
+        apiKey, false, OpacityEnvironment.test);
   }
 
   Future<void> getUberRiderProfile() async {
@@ -44,23 +42,18 @@ class _MyAppState extends State<MyApp> {
     print('Response: $response');
   }
 
-  Future<void> getGithubProfile() async {
-    final response = await _flutterOpacityCorePlugin.getGithubProfile();
-    // ignore: avoid_print
+  Future<void> getGenerateProof() async {
+    final response = await _flutterOpacityCorePlugin.get("generate_proof");
     print('Response: $response');
   }
 
-  Future<void> getInstagramProfile() async {
-    final response = await _flutterOpacityCorePlugin.getInstagramProfile();
-    // ignore: avoid_print
-    print('Response: $response');
-  }
-
-  // LUA get example
-  Future<void> get() async {
-    final response = await _flutterOpacityCorePlugin.get('flow:gusto:my_pay');
-    // ignore: avoid_print
-    print('Response: $response');
+  Future<void> getFail() async {
+    try {
+      final response = await _flutterOpacityCorePlugin.get("fail");
+      print('Response: $response');
+    } catch (e) {
+      print('Error: $e');
+    }
   }
 
   @override
@@ -80,22 +73,16 @@ class _MyAppState extends State<MyApp> {
               child: const Text("Get Uber Rider Profile")),
           MaterialButton(
               onPressed: () {
-                getGithubProfile();
+                getGenerateProof();
               },
               color: Colors.green,
-              child: const Text("Get Github Profile")),
+              child: const Text("Get generate_proof")),
           MaterialButton(
               onPressed: () {
-                getInstagramProfile();
+                getFail();
               },
               color: Colors.green,
-              child: const Text("Get Instagram Profile")),
-          MaterialButton(
-              onPressed: () {
-                get();
-              },
-              color: Colors.green,
-              child: const Text("Get Gusto My Pay")),
+              child: const Text("failing")),
         ]),
       ),
     ));

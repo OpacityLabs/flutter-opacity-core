@@ -43,18 +43,6 @@ abstract class FlutterOpacityCorePlatform extends PlatformInterface {
     throw UnimplementedError('init() has not been implemented.');
   }
 
-  Future getUberRiderProfile() {
-    throw UnimplementedError('getUberRiderProfile() has not been implemented.');
-  }
-
-  Future getGithubProfile() {
-    throw UnimplementedError('getGithubProfile() has not been implemented.');
-  }
-
-  Future getInstagramProfile() {
-    throw UnimplementedError('getInstagramProfile() has not been implemented.');
-  }
-
   Future get(String name, {Map<String, dynamic>? params}) {
     throw UnimplementedError('get(name, params) has not been implemented.');
   }
