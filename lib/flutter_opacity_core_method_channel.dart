@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'dart:convert';
 
 import 'flutter_opacity_core_platform_interface.dart';
 
