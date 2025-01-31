@@ -31,8 +31,28 @@ class _MyAppState extends State<MyApp> {
     if (apiKey == null || apiKey.isEmpty) {
       throw Exception('API key is not set');
     }
-    await _flutterOpacityCorePlugin.init(
-        apiKey, false, OpacityEnvironment.test);
+    try {
+      await _flutterOpacityCorePlugin.init(
+        apiKey, false, OpacityEnvironment.production);
+    } catch (e) {
+      showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+        title: const Text('Error'),
+        content: const Text('Session could not be created'),
+        actions: <Widget>[
+          TextButton(
+          child: const Text('OK'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          ),
+        ],
+        );
+      },
+      );
+    }
   }
 
   Future<void> getUberRiderProfile() async {

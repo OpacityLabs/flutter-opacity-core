@@ -10,7 +10,7 @@ https://pub.dev/packages/flutter_opacity_core
 
 ## iOS
 
-You need to bump min iOS version to iOS 14 or newer.
+You need to bump min iOS version to iOS 14 or newer. Then do a `pod install` on the `ios`. Sometimes when upgrading versions you might find it cannot find the new version of the native dependency. You can try with `pod install --repo-update` or by deleting the `Podfile.lock` file and running pod install again.
 
 ### Android
 
@@ -39,15 +39,9 @@ On your apps `AndroidManifest.xml` add an activity:
 
 You will also have to bump the minSDK version to 23. In your app's `build.gradle` file:
 
-```gradle
+```groovy
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.opacitylabs.flutter_opacity_core_example"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
+        // the rest of your config
         minSdk = 24 // Change this!
-        targetSdk = flutter.targetSdkVersion
-        versionCode = flutter.versionCode
-        versionName = flutter.versionName
     }
 ```
