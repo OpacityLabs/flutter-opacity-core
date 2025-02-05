@@ -39,7 +39,7 @@ abstract class FlutterOpacityCorePlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future init(String apiKey, bool dryRun, int environment) {
+  Future init(String apiKey, bool dryRun, int environment, bool shouldShowErrorsInWebView) {
     throw UnimplementedError('init() has not been implemented.');
   }
 

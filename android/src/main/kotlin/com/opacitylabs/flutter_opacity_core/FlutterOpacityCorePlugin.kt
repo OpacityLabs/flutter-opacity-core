@@ -32,9 +32,10 @@ class FlutterOpacityCorePlugin: FlutterPlugin, MethodCallHandler, ActivityAware 
     when(call.method) {
       "init" -> {
         val apiKey = call.argument<String?>("apiKey")
-        val dryRun = call.argument<Boolean?>("dryRun")
+        val dryRun = call.argument<Boolean?>("dryRun") ?: false
         val environment = call.argument<Int?>("environment")
-        if (apiKey == null || dryRun == null || environment == null) {
+        val shouldShowErrorsInWebview = call.argument<Boolean?>("shouldShowErrorsInWebView")  ?: true
+        if (apiKey == null || environment == null) {
           result.error("INVALID_ARGUMENTS", "apiKey and dryRun must be provided", null)
         } else {
             val environmentEnum = when (environment) {
@@ -47,7 +48,7 @@ class FlutterOpacityCorePlugin: FlutterPlugin, MethodCallHandler, ActivityAware 
               return
             }
             }
-          OpacityCore.initialize(apiKey, dryRun, environmentEnum)
+          OpacityCore.initialize(apiKey, dryRun, environmentEnum, shouldShowErrorsInWebview)
           result.success(null)
         }
       }

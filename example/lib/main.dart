@@ -33,7 +33,7 @@ class _MyAppState extends State<MyApp> {
     }
     try {
       await _flutterOpacityCorePlugin.init(
-        apiKey, false, OpacityEnvironment.production);
+        apiKey, false, OpacityEnvironment.production, true);
     } catch (e) {
       showDialog(
       context: context,
