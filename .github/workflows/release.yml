@@ -12,11 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
+      - uses: flutter-actions/setup-flutter@v4
         with:
           channel: stable
-          flutter-version: "3.24.4"
+          version: "3.24.4"
       - name: Install dependencies
         run: flutter pub get
       - name: Update pubspec.yaml version
