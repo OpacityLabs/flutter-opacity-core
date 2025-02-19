@@ -25,10 +25,3 @@ jobs:
           sed -i "s/^version:.*/version: $tag/" pubspec.yaml
       - name: Publish
         run: flutter pub publish --force
-      # - name: Publish
-      #   uses: k-paxian/dart-package-publisher@v1.5.1
-      #   with:
-      #     credentialJson: ${{ secrets.CREDENTIAL_JSON }}
-      #     flutter: true
-      #     force: true
-      #     skipTests: true
