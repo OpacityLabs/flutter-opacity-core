@@ -19,15 +19,16 @@ jobs:
           flutter-version: "3.24.4"
       - name: Install dependencies
         run: flutter pub get
-      # - name: Analyze
-      #   run: flutter analyze
-      # - name: Check Publish Warnings
-      #   run: dart pub publish --dry-run
       - name: Update pubspec.yaml version
         run: |
           tag=$(echo $GITHUB_REF | sed 's/refs\/tags\///')
           sed -i "s/^version:.*/version: $tag/" pubspec.yaml
       - name: Publish
-        run: |
-          echo "${{ secrets.CREDENTIAL_JSON }}" > /tmp/credentials.json
-          flutter pub publish --credentials=/tmp/credentials.json --force
+        run: flutter pub publish --force
+      # - name: Publish
+      #   uses: k-paxian/dart-package-publisher@v1.5.1
+      #   with:
+      #     credentialJson: ${{ secrets.CREDENTIAL_JSON }}
+      #     flutter: true
+      #     force: true
+      #     skipTests: true
