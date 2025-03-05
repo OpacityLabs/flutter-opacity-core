@@ -13,86 +13,98 @@ import com.opacitylabs.opacitycore.OpacityCore
 import kotlinx.coroutines.*
 
 /** FlutterOpacityCorePlugin */
-class FlutterOpacityCorePlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
-  /// The MethodChannel that will the communication between Flutter and native Android
-  ///
-  /// This local reference serves to register the plugin with the Flutter Engine and unregister it
-  /// when the Flutter Engine is detached from the Activity
-  private lateinit var channel : MethodChannel
-  private lateinit var context : Context
-  private var activity: Activity? = null
+class FlutterOpacityCorePlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
+    /// The MethodChannel that will the communication between Flutter and native Android
+    ///
+    /// This local reference serves to register the plugin with the Flutter Engine and unregister it
+    /// when the Flutter Engine is detached from the Activity
+    private lateinit var channel: MethodChannel
+    private lateinit var context: Context
+    private var activity: Activity? = null
 
-  override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-    context = flutterPluginBinding.applicationContext
-    channel = MethodChannel(flutterPluginBinding.binaryMessenger, "flutter_opacity_core")
-    channel.setMethodCallHandler(this)
-  }
-
-  override fun onMethodCall(call: MethodCall, result: Result) {
-    when(call.method) {
-      "init" -> {
-        val apiKey = call.argument<String?>("apiKey")
-        val dryRun = call.argument<Boolean?>("dryRun") ?: false
-        val environment = call.argument<Int?>("environment")
-        val shouldShowErrorsInWebview = call.argument<Boolean?>("shouldShowErrorsInWebView")  ?: true
-        if (apiKey == null || environment == null) {
-          result.error("INVALID_ARGUMENTS", "apiKey and dryRun must be provided", null)
-        } else {
-            val environmentEnum = when (environment) {
-            0 -> OpacityCore.Environment.TEST
-            1 -> OpacityCore.Environment.LOCAL
-            2 -> OpacityCore.Environment.STAGING
-            3 -> OpacityCore.Environment.PRODUCTION
-            else -> {
-              result.error("INVALID_ARGUMENTS", "Invalid environment value", null)
-              return
-            }
-            }
-          OpacityCore.initialize(apiKey, dryRun, environmentEnum, shouldShowErrorsInWebview)
-          result.success(null)
-        }
-      }
-      "get" -> {
-        val name = call.argument<String>("name")
-        val params = call.argument<Map<String, Any>>("params")
-        if (name == null) {
-          result.error("MISSING_PARAM", "Name parameter is required", null)
-          return
-        }
-        CoroutineScope(Dispatchers.Main).launch {
-          try {
-            val res = OpacityCore.get(name, params)
-            result.success(res)
-          } catch (e: Exception) {
-            result.error("ERROR_FETCHING_TABLE", e.message, null)
-          }
-        }
-      }
-      else -> {
-        result.notImplemented()
-      }
+    override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
+        context = flutterPluginBinding.applicationContext
+        channel = MethodChannel(flutterPluginBinding.binaryMessenger, "flutter_opacity_core")
+        channel.setMethodCallHandler(this)
     }
-  }
 
-  override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
-    channel.setMethodCallHandler(null)
-  }
+    override fun onMethodCall(call: MethodCall, result: Result) {
+        when (call.method) {
+            "init" -> {
+                val apiKey = call.argument<String?>("apiKey")
+                val dryRun = call.argument<Boolean?>("dryRun") ?: false
+                val environment = call.argument<Int?>("environment")
+                val shouldShowErrorsInWebview =
+                    call.argument<Boolean?>("shouldShowErrorsInWebView") ?: true
+                if (apiKey == null || environment == null) {
+                    result.error("INVALID_ARGUMENTS", "apiKey and dryRun must be provided", null)
+                } else {
+                    val environmentEnum = when (environment) {
+                        0 -> OpacityCore.Environment.TEST
+                        1 -> OpacityCore.Environment.LOCAL
+                        2 -> OpacityCore.Environment.STAGING
+                        3 -> OpacityCore.Environment.PRODUCTION
+                        else -> {
+                            result.error("INVALID_ARGUMENTS", "Invalid environment value", null)
+                            return
+                        }
+                    }
+                    try {
+                        OpacityCore.initialize(
+                            apiKey,
+                            dryRun,
+                            environmentEnum,
+                            shouldShowErrorsInWebview
+                        )
+                        result.success(null)
+                    } catch (e: Exception) {
+                        result.error("INITIALIZATION_ERROR", e.message, null)
+                    }
+                }
+            }
 
-  override fun onAttachedToActivity(binding: ActivityPluginBinding) {
-    activity = binding.activity
-    OpacityCore.setContext(binding.activity)
-  }
+            "get" -> {
+                val name = call.argument<String>("name")
+                val params = call.argument<Map<String, Any>>("params")
+                if (name == null) {
+                    result.error("MISSING_PARAM", "Name parameter is required", null)
+                    return
+                }
+                CoroutineScope(Dispatchers.Main).launch {
+                    try {
+                        val res = OpacityCore.get(name, params)
+                        result.success(res)
+                    } catch (e: Exception) {
+                        result.error("ERROR_FETCHING_TABLE", e.message, null)
+                    }
+                }
+            }
 
-  override fun onDetachedFromActivityForConfigChanges() {
-    activity = null
-  }
+            else -> {
+                result.notImplemented()
+            }
+        }
+    }
 
-  override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
-    activity = binding.activity
-    OpacityCore.setContext(binding.activity)
-  }
+    override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
+        channel.setMethodCallHandler(null)
+    }
 
-  override fun onDetachedFromActivity() {
-    activity = null
-  }
+    override fun onAttachedToActivity(binding: ActivityPluginBinding) {
+        activity = binding.activity
+        OpacityCore.setContext(binding.activity)
+    }
+
+    override fun onDetachedFromActivityForConfigChanges() {
+        activity = null
+    }
+
+    override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
+        activity = binding.activity
+        OpacityCore.setContext(binding.activity)
+    }
+
+    override fun onDetachedFromActivity() {
+        activity = null
+    }
 }
