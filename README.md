@@ -45,3 +45,14 @@ You will also have to bump the minSDK version to 23. In your app's `build.gradle
         minSdk = 24 // Change this!
     }
 ```
+
+In order to build/release your app, you will have to edit the `android/app/proguard-rules.pro` file and add the following lines:
+
+```
+-keep class org.yaml.snakeyaml.** { *; }
+-dontwarn org.yaml.snakeyaml.**
+-keep class org.mozilla.geckoview.** { *; }
+-dontwarn org.mozilla.geckoview.**
+-keep class org.mozilla.gecko.** { *; }
+-dontwarn org.mozilla.gecko.**
+```

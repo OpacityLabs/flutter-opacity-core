@@ -1,0 +1,6 @@
+-keep class org.yaml.snakeyaml.** { *; }
+-dontwarn org.yaml.snakeyaml.**
+-keep class org.mozilla.geckoview.** { *; }
+-dontwarn org.mozilla.geckoview.**
+-keep class org.mozilla.gecko.** { *; }
+-dontwarn org.mozilla.gecko.**
