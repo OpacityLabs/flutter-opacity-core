@@ -10,6 +10,7 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import com.opacitylabs.opacitycore.OpacityCore
+import com.opacitylabs.opacitycore.OpacityError
 import kotlinx.coroutines.*
 
 /** FlutterOpacityCorePlugin */
@@ -42,8 +43,9 @@ class FlutterOpacityCorePlugin : FlutterPlugin, MethodCallHandler, ActivityAware
                     val environmentEnum = when (environment) {
                         0 -> OpacityCore.Environment.TEST
                         1 -> OpacityCore.Environment.LOCAL
-                        2 -> OpacityCore.Environment.STAGING
-                        3 -> OpacityCore.Environment.PRODUCTION
+                        2 -> OpacityCore.Environment.SANDBOX
+                        3 -> OpacityCore.Environment.STAGING
+                        4 -> OpacityCore.Environment.PRODUCTION
                         else -> {
                             result.error("INVALID_ARGUMENTS", "Invalid environment value", null)
                             return
@@ -71,12 +73,23 @@ class FlutterOpacityCorePlugin : FlutterPlugin, MethodCallHandler, ActivityAware
                     return
                 }
                 CoroutineScope(Dispatchers.Main).launch {
-                    try {
-                        val res = OpacityCore.get(name, params)
-                        result.success(res)
-                    } catch (e: Exception) {
-                        result.error("ERROR_FETCHING_TABLE", e.message, null)
-                    }
+                    val res = OpacityCore.get(name, params)
+                    res.fold(
+                        onSuccess = { value ->
+                            result.success(value)
+                        },
+                        onFailure = {
+                            when (it) {
+                                is OpacityError -> {
+                                    result.error(it.code, it.message, it)
+                                }
+
+                                else -> {
+                                    result.error("UnknownError", it.message, it)
+                                }
+                            }
+                        }
+                    )
                 }
             }
 

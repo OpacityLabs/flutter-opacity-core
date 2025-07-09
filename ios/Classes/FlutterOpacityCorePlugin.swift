@@ -66,18 +66,25 @@ public class FlutterOpacityCorePlugin: NSObject, FlutterPlugin {
                             params: params
                         )
                         result(res)
-                    } catch {
+                    } catch let error as OpacityError {
                         result(
                             FlutterError(
-                                code: "ERROR_GETTING_FLOW",
-                                message: error.localizedDescription,
+                              code: error.code,
+                                message: error.message,
                                 details: nil))
+                    } catch {
+                      result(
+                        FlutterError(
+                          code: "UnknownError",
+                          message: error.localizedDescription,
+                          details: nil))
+
                     }
                 }
             } else {
                 result(
                     FlutterError(
-                        code: "INVALID_ARGUMENTS", message: "Invalid arguments",
+                        code: "InvalidArguments", message: "Invalid arguments",
                         details: nil))
             }
         default:
