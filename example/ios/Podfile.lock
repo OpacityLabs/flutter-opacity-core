@@ -2,8 +2,8 @@ PODS:
   - Flutter (1.0.0)
   - flutter_opacity_core (0.0.1):
     - Flutter
-    - OpacityCore (= 6.1.14)
-  - OpacityCore (6.1.14)
+    - OpacityCore (= 6.1.15)
+  - OpacityCore (6.1.15)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
@@ -21,8 +21,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  flutter_opacity_core: b7037a8e6e7cf77be3aa969111079a969e75242c
-  OpacityCore: 1ff9c43443689d04a726c60da6bd2502128f1893
+  flutter_opacity_core: d3ab05edcd6bc4183456b55bda2cd4735f7c9eb9
+  OpacityCore: 2de212ff106a154a967d44f151838737c4aebeb9
 
 PODFILE CHECKSUM: 775997f741c536251164e3eacf6e34abf2eb7a17
 
