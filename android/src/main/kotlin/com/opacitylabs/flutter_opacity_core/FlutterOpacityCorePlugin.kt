@@ -41,7 +41,6 @@ class FlutterOpacityCorePlugin : FlutterPlugin, MethodCallHandler, ActivityAware
                     result.error("INVALID_ARGUMENTS", "apiKey and dryRun must be provided", null)
                 } else {
                     val environmentEnum = when (environment) {
-                        0 -> OpacityCore.Environment.TEST
                         1 -> OpacityCore.Environment.LOCAL
                         2 -> OpacityCore.Environment.SANDBOX
                         3 -> OpacityCore.Environment.STAGING
