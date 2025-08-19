@@ -57,7 +57,7 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> getUberRiderProfile() async {
     final response =
-        await _flutterOpacityCorePlugin.get("flow:uber_rider:profile");
+        await _flutterOpacityCorePlugin.get("uber_rider:profile");
     // ignore: avoid_print
     print('Response: $response');
   }
