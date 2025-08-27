@@ -52,7 +52,7 @@ android {
     dependencies {
         testImplementation("org.jetbrains.kotlin:kotlin-test")
         testImplementation("org.mockito:mockito-core:5.0.0")
-        api "com.github.OpacityLabs:opacity-android:6.1.19"
+        api "com.github.OpacityLabs:opacity-android:6.1.20"
     }
 
     testOptions {
